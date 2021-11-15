@@ -22,17 +22,17 @@ public class PaypalController {
 	public static final String SUCCESS_URL = "pay/success";
 	public static final String CANCEL_URL = "pay/cancel";
 
-	@GetMapping("/teste")
+	@GetMapping("/pagamento")
 	public String teste() {
-		return "teste";
+		return "pagamento";
 	}
 
 	@PostMapping("/pay")
 	public String payment(@ModelAttribute("order") Order order) {
 		try {
 			Payment payment = service.createPayment(order.getPrice(), order.getCurrency(), order.getMethod(),
-					order.getIntent(), order.getDescription(), "http://localhost:9090/" + CANCEL_URL,
-					"http://localhost:9090/" + SUCCESS_URL);
+					order.getIntent(), order.getDescription(), "http://localhost:8080/" + CANCEL_URL,
+					"http://localhost:8080/" + SUCCESS_URL);
 			for(Links link:payment.getLinks()) {
 				if(link.getRel().equals("approval_url")) {
 					return "redirect:"+link.getHref();

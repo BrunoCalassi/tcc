@@ -1,6 +1,8 @@
 package com.projeto.barganhaleilao.model;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -15,7 +17,10 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.format.annotation.NumberFormat;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 
 @Entity
 public class CadProduto {
@@ -24,24 +29,50 @@ public class CadProduto {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long codigo;
 
-	@NotEmpty(message="Nome do produto é obrigatório.")
-	@Size(max = 30, message = "Descrição tem que ter no máximo 30 caracteres")
+	@NotEmpty(message="Nome do produto ï¿½ obrigatï¿½rio.")
+	@Size(max = 30, message = "Descriï¿½ï¿½o tem que ter no mï¿½ximo 30 caracteres")
 	private String produto;
 
-	@NotNull(message="Preço é obrigatório.")
-	@DecimalMin(value= "0.01", message = "Preço não pode ser menor que 0,01")
-	@DecimalMax(value= "9999999.99", message = "Preço não pode ser maior que 9999999.99")
+	@NotNull(message="Preï¿½o ï¿½ obrigatï¿½rio.")
+	@DecimalMin(value= "0.01", message = "Preï¿½o nï¿½o pode ser menor que 0,01")
+	@DecimalMax(value= "9999999.99", message = "Preï¿½o nï¿½o pode ser maior que 9999999.99")
 	@NumberFormat(pattern = "#,##0.00")
 	private BigDecimal preco;
 
-	@NotEmpty(message="Descrição é obrigatória.")
-	@Size(max = 60, message = "Descrição tem que ter no máximo 60 caracteres")
+	@NotEmpty(message="Descriï¿½ï¿½o ï¿½ obrigatï¿½ria.")
+	@Size(max = 60, message = "Descriï¿½ï¿½o tem que ter no mï¿½ximo 60 caracteres")
 	private String descricao;
 
 	@Enumerated(EnumType.STRING)
 	private StatusVenda status;
 
 	private String caminho;
+	
+
+    private Date comecoleilao;
+
+    private Date fimleilao;
+
+	@InitBinder     
+public void initBinder(WebDataBinder binder){
+     binder.registerCustomEditor(       Date.class,     
+                         new CustomDateEditor(new SimpleDateFormat("dd/MM/yyyy"), true, 10));   
+}
+	public Date getComecoleilao() {
+		return this.comecoleilao;
+	}
+
+	public void setComecoleilao(Date comecoleilao) {
+		this.comecoleilao = comecoleilao;
+	}
+
+	public Date getFimleilao() {
+		return this.fimleilao;
+	}
+
+	public void setFimleilao(Date fimleilao) {
+		this.fimleilao = fimleilao;
+	}
 
 	public String getCaminho() {
 		return caminho;
