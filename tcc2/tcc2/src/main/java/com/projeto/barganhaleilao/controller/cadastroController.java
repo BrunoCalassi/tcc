@@ -36,11 +36,11 @@ public class cadastroController {
 			return mv;
 		}
 		try {
-			FileUploadUtil.saveFile("C:\\upload",file.getOriginalFilename(),file);
+			FileUploadUtil.saveFile("C:\\Users\\marcos\\OneDrive\\Área de Trabalho\\tcc2\\src\\main\\resources\\static\\images\\upload\\",file.getOriginalFilename(),file);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		cadProduto.setCaminho("C:\\upload\\"+file.getOriginalFilename());
+		cadProduto.setCaminho("/images/upload/"+file.getOriginalFilename());
 		produtos.save(cadProduto);
 		mv.addObject("mensagem", "Produto salvo com sucesso!");
 		return mv;

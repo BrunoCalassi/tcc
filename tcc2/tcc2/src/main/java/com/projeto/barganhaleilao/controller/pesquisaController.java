@@ -20,7 +20,7 @@ public class pesquisaController {
 	private Produtos prod;
     
 	@RequestMapping
-	public ModelAndView pesquisar(@ModelAttribute("filtro")ObjetoFiltro filtro) {
+	public ModelAndView pesquisar(@ModelAttribute("filtro") ObjetoFiltro filtro) {
 		String produto = filtro.getProduto() == null ? "%" : filtro.getProduto();
 		List<CadProduto> todosObjetos = prod.findByProdutoContaining(produto);
 		ModelAndView mv = new ModelAndView("PesquisaProdutos");

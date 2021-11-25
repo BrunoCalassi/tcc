@@ -45,19 +45,21 @@ public class CadProduto {
 
 	@Enumerated(EnumType.STRING)
 	private StatusVenda status;
-
-	private String caminho;
 	
+	
+	private String caminho;
+ 
 
     private Date comecoleilao;
 
     private Date fimleilao;
 
 	@InitBinder     
-public void initBinder(WebDataBinder binder){
+	public void initBinder(WebDataBinder binder){
      binder.registerCustomEditor(       Date.class,     
                          new CustomDateEditor(new SimpleDateFormat("dd/MM/yyyy"), true, 10));   
-}
+	}
+	
 	public Date getComecoleilao() {
 		return this.comecoleilao;
 	}

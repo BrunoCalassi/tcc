@@ -1,5 +1,5 @@
 package com.projeto.barganhaleilao.repository;
-
+//package com.projeto.barganhaleilao.repository.filtro;
 public class ObjetoFiltro {
 	
 	private String produto;

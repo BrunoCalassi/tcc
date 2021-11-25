@@ -3,6 +3,7 @@ package com.projeto.barganhaleilao.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,6 +26,11 @@ public class CadastroClientesController {
 	@RequestMapping(value="/cadastro/cliente", method=RequestMethod.POST)
 	public ModelAndView salvar(Clientes clientes) {
 		ModelAndView mv = new ModelAndView("CadastroClientes");
+		
+		  BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		    String encodedPassword = passwordEncoder.encode(clientes.getSenha());
+		    clientes.setSenha(encodedPassword);
+		    
 		clientesInterface.save(clientes);
 		mv.addObject("mensagem", "Cliente cadastrado com sucesso!");
 		return mv;
