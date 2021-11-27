@@ -28,10 +28,16 @@
 		</div>
 	</nav>
 
-	<form class="form-horizontal" method="POST" action="/cadastro/cliente">
+	<form class="form-horizontal" method="POST" action="/cadastro/cliente" th:object="${clientes}">
 		<div class="alert alert-sucess" th:if="${!#strings.isEmpty(mensagem)}">
 			<span th:text="${mensagem}">Cliente cadastrado com sucesso!</span>
 		</div>
+
+		<div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
+			<div th:each="detailedError : ${#fields.detailedErrors()}">
+				<span th:text="${detailedError.message}"></span>
+			</div>
+		</div> 
 
 		<div class="panel panel-default">
 			<div class="panel-heading">
