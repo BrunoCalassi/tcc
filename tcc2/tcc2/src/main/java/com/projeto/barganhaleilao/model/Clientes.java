@@ -6,6 +6,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.br.CPF;
+
 @Entity
 @Table(name = "clientes")
 public class Clientes {
@@ -13,15 +16,26 @@ public class Clientes {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
-	
+
+	@NotEmpty(message = "Campo usuario é obrigatório")
 	private String usuario;
 	
+	@NotEmpty(message = "Campo nome é obrigatório")
 	private String nome;
 	
+	@NotEmpty(message = "Campo email é obrigatório")
 	private String email;
+	
+	@NotEmpty(message = "Campo celular é obrigatório")
 	private String celular;
+
+	@NotEmpty(message = "Campo endereço é obrigatório")
 	private String endereco;
+
+	@CPF
 	private String cpf;
+
+	@NotEmpty(message = "Campo senha é obrigatório")
 	private String senha;
 
 	

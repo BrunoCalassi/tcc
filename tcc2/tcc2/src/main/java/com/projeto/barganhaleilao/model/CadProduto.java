@@ -1,7 +1,6 @@
 package com.projeto.barganhaleilao.model;
 
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
@@ -17,10 +16,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 
 @Entity
 public class CadProduto {
@@ -28,38 +25,43 @@ public class CadProduto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long codigo;
+	
+	private String usuario;
+	
 
-	@NotEmpty(message="Nome do produto � obrigat�rio.")
-	@Size(max = 30, message = "Descri��o tem que ter no m�ximo 30 caracteres")
+	@NotEmpty(message="Nome do produto é obrigatório.")
+	@Size(max = 30, message = "O nome do produto tem que ter no máximo 30 caracteres")
 	private String produto;
 
-	@NotNull(message="Pre�o � obrigat�rio.")
-	@DecimalMin(value= "0.01", message = "Pre�o n�o pode ser menor que 0,01")
-	@DecimalMax(value= "9999999.99", message = "Pre�o n�o pode ser maior que 9999999.99")
+	@NotNull(message="Preço é obrigatório.")
+	@DecimalMin(value= "0.01", message = "Preço nâo pode ser menor que 0,01")
+	@DecimalMax(value= "9999999.99", message = "Preço não pode ser maior que 9999999.99")
 	@NumberFormat(pattern = "#,##0.00")
 	private BigDecimal preco;
 
-	@NotEmpty(message="Descri��o � obrigat�ria.")
-	@Size(max = 60, message = "Descri��o tem que ter no m�ximo 60 caracteres")
+	@NotEmpty(message="Descrição é obrigatória.")
+	@Size(max = 60, message = "Descrição tem que ter no máximo 60 caracteres")
 	private String descricao;
 
 	@Enumerated(EnumType.STRING)
 	private StatusVenda status;
 	
-	
 	private String caminho;
- 
-
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date comecoleilao;
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fimleilao;
 
-	@InitBinder     
-	public void initBinder(WebDataBinder binder){
-     binder.registerCustomEditor(       Date.class,     
-                         new CustomDateEditor(new SimpleDateFormat("dd/MM/yyyy"), true, 10));   
+	public String getUsuario() {
+		return usuario;
 	}
-	
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+
 	public Date getComecoleilao() {
 		return this.comecoleilao;
 	}

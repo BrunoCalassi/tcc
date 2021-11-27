@@ -2,9 +2,12 @@ package com.projeto.barganhaleilao.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -13,18 +16,24 @@ import com.projeto.barganhaleilao.model.Clientes;
 import com.projeto.barganhaleilao.repository.ClientesInterface;
 
 @Controller
+@RequestMapping("/cadastro")
 public class CadastroClientesController {
 	
 	@Autowired
 	private ClientesInterface clientesInterface;
 	
-	@RequestMapping("/cadastro/cliente")
-	public String novo() {
-		return "CadastroClientes";
+	@RequestMapping(value = "/cliente", method = RequestMethod.GET)
+	public ModelAndView novo(Clientes clientes) {
+		ModelAndView mv = new ModelAndView("CadastroClientes");
+		return mv;
 	}
 
-	@RequestMapping(value="/cadastro/cliente", method=RequestMethod.POST)
-	public ModelAndView salvar(Clientes clientes) {
+	@RequestMapping(value="/cliente", method=RequestMethod.POST)
+	public ModelAndView salvar(@Valid Clientes clientes, BindingResult result) {
+		if(result.hasErrors()){
+			return novo(clientes);
+		}
+
 		ModelAndView mv = new ModelAndView("CadastroClientes");
 		
 		  BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();

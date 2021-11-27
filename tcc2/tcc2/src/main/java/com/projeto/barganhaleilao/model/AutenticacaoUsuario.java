@@ -51,7 +51,7 @@ public class AutenticacaoUsuario implements UserDetails {
     }
      
     public String getNome() {
-        return cliente.getNome();
+        return cliente.getUsuario();
     }
  
 }

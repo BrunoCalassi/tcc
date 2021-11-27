@@ -7,6 +7,7 @@ public enum StatusVenda {
 	private String descricao;
 	
 	private StatusVenda(String descricao) {
+		// TODO Auto-generated constructor stub
 	} 
 	
 	public String getDescricao() {
